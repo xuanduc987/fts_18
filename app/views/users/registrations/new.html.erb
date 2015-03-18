@@ -1,0 +1,35 @@
+<%= content_tag :h2, "Sign up" %>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <%= content_tag :div, class: "field" do %>
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true %>
+  <% end %>
+
+  <%= content_tag :div, class: "field" do %>
+    <%= f.label :email %><br />
+    <%= f.email_field :email %>
+  <% end %>
+
+  <%= content_tag :div, class: "field" do %>
+    <%= f.label :password %>
+    <% if @validatable %>
+      <%= content_tag :em, "(#{@minimum_password_length} characters minimum)" %>
+    <% end %>
+    <br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  <% end %>
+
+  <%= content_tag :div, class: "field" do %>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  <% end %>
+
+  <%= content_tag :div, class: "actions" do %>
+    <%= f.submit "Sign up" %>
+  <% end %>
+<% end %>
+
+<%= render "users/shared/links" %>
