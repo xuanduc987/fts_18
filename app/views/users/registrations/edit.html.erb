@@ -1,41 +1,54 @@
-<%= content_tag :h2, "Edit #{resource_name.to_s.humanize}" %>
+<% provide :title, "Edit #{resource_name.to_s.humanize}" %>
+<%= content_tag :h1, yield(:title) %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+<%= content_tag :div, class: "row" do %>
+  <%= content_tag :div, class: "col-md-offset-3 col-md-6" do %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name),
+                 html: {method: :put}) do |f| %>
+      <%= devise_error_messages! %>
 
-  <%= content_tag :div, class: "field" do %>
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  <% end %>
+      <%= content_tag :div, class: "field" do %>
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class: "form-control" %>
+      <% end %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <%= content_tag :div, "Currently waiting confirmation for: #{resource.unconfirmed_email}" %>
-  <% end %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <%= content_tag :div,
+          "Currently waiting confirmation for: #{resource.unconfirmed_email}" %>
+      <% end %>
 
-  <%= content_tag :div, class: "field" do %>
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  <% end %>
+      <%= content_tag :div, class: "field" do %>
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+        <br />
+        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      <% end %>
 
-  <%= content_tag :div, class: "field" do %>
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  <% end %>
+      <%= content_tag :div, class: "field" do %>
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation,
+          autocomplete: "off", class: "form-control" %>
+      <% end %>
 
-  <%= content_tag :div, class: "field" do %>
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  <% end %>
+      <%= content_tag :div, class: "field" do %>
+        <%= f.label :current_password %>
+        <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.password_field :current_password,
+          autocomplete: "off", class: "form-control" %>
+      <% end %>
 
-  <%= content_tag :div, class: "actions" do %>
-    <%= f.submit "Update" %>
+      <%= content_tag :div, class: "actions" do %>
+        <%= f.submit "Update", class: "btn btn-lg btn-primary" %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :h3, "Cancel my account" %>
+
+    <%= content_tag :p do %>
+      Unhappy? <%= button_to "Cancel my account", registration_path(resource_name),
+        data: {confirm: "Are you sure?"}, method: :delete,
+        class: "btn btn-sm btn-danger" %>
+    <% end %>
+
+    <%= link_to "Back", :back %>
   <% end %>
 <% end %>
-
-<%= content_tag :h3, "Cancel my account" %>
-
-<%= content_tag :p do %>
-  Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
-<% end %>
-
-<%= link_to "Back", :back %>
