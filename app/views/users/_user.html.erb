@@ -1,0 +1,10 @@
+<%= content_tag :li do %>
+  <%= link_to user.name, user %>
+  <% if current_user.is_admin? && current_user != user %>
+    <%= content_tag :span, class: "admin" do %>
+    <%= link_to "delete", admin_user_path(user), method: :delete,
+                                data: {confirm: "You sure?"},
+                                class: "btn btn-sm btn-danger" %>
+    <% end %>
+  <% end %>
+<% end %>
