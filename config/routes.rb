@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   get 'contact' => 'static_pages#contact'
 
   devise_for :users, controllers: {registrations: "users/registrations"}
+  resources 'users', except: [:destroy]
+  namespace :admin do
+    resources :users, only: [:destroy]
+  end
 end
