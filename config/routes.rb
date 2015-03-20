@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   get 'contact' => 'static_pages#contact'
 
   devise_for :users, controllers: {registrations: "users/registrations"}
-  resources 'users', except: [:destroy]
+  resources :users, except: [:destroy]
+  resources :courses do
+    resources :results, only: [:create, :show, :update]
+  end
+
   namespace :admin do
     resources :users, only: [:destroy]
   end

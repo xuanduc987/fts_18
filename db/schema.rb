@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320014455) do
+ActiveRecord::Schema.define(version: 20150320094055) do
 
   create_table "answers", force: :cascade do |t|
-    t.integer  "result_id",  limit: 4
-    t.integer  "option_id",  limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "result_id",   limit: 4
+    t.integer  "option_id",   limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "question_id", limit: 4
   end
 
   add_index "answers", ["option_id"], name: "index_answers_on_option_id", using: :btree
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
   add_index "answers", ["result_id"], name: "index_answers_on_result_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
@@ -81,6 +83,7 @@ ActiveRecord::Schema.define(version: 20150320014455) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "answers", "options"
+  add_foreign_key "answers", "questions"
   add_foreign_key "answers", "results"
   add_foreign_key "options", "questions"
   add_foreign_key "questions", "courses"
