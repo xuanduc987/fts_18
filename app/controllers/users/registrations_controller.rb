@@ -39,11 +39,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) << :name
+    devise_parameter_sanitizer.for(:sign_up) << [:name, :avatar, :avatar_cache]
   end
 
   def configure_account_update_params
-    devise_parameter_sanitizer.for(:account_update) << :name
+    devise_parameter_sanitizer.for(:account_update) << [:name, :avatar,
+                                                        :avatar_cache]
   end
 
   # The path used after sign up.

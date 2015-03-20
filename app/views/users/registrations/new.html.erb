@@ -34,6 +34,13 @@
           class: "form-control" %>
       <% end %>
 
+      <%= content_tag :span, class: "avatar" do %>
+        <%= f.label :avatar %><br />
+        <%= image_tag(@user.avatar.thumb.url) if @user.avatar? %>
+        <%= f.file_field :avatar, accept: "image/jpeg,image/gif,image/png" %>
+        <%= f.hidden_field :avatar_cache %>
+      <% end %>
+
       <%= content_tag :div, class: "actions" do %>
         <%= f.submit "Sign up", class: "btn btn-primary" %>
       <% end %>
