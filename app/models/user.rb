@@ -6,16 +6,20 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  ROLES = %w(admin normal)
 
   has_many :results, dependent: :destroy
 
   validates :name, presence: true, length: {maximum:50}
   validates :email, presence: true, length: {maximum: 255},
     format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
+  validates :role, presence: true, inclusion: {in: ROLES}
   validate :avatar_size
 
-  def is_admin?
-    self.role == 'admin'
+  ROLES.each do |role|
+    define_method("is_#{role}?") do
+      self.role == role
+    end
   end
 
   private
