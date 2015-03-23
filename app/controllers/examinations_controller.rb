@@ -2,6 +2,7 @@ class ExaminationsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_course
   before_action :correct_user, except: :create
+  before_action :check_time_limit, only: :update
 
   def create
     @examination = Examination.new course: @course, user: current_user
@@ -19,6 +20,12 @@ class ExaminationsController < ApplicationController
   end
 
   def update
+    flash[:success] = if @examination.update_attributes examination_params
+                        "Your answers had been saved."
+                      else
+                        "Can't save your answers."
+                      end
+    redirect_to course_examination_path @course, @examination
   end
 
   private
@@ -28,9 +35,18 @@ class ExaminationsController < ApplicationController
 
   def correct_user
     @examination = Examination.find_by id: params[:id]
-    unless @examination.user == current_user
-      flash[:warning] = "You can't view other's test"
-      redirect_to root_url
-    end
+    return if @examination.user == current_user
+    flash[:warning] = "You can't view other's test"
+    redirect_to root_url
+  end
+
+  def examination_params
+    params.require(:examination).permit answers_attributes: [:id, :option_id]
+  end
+
+  def check_time_limit
+    return unless @examination.time_up?
+    flash[:warning] = "Time's up"
+    redirect_to course_examination_path @course, @examination
   end
 end
