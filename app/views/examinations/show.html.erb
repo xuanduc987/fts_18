@@ -1,10 +1,10 @@
-<% provide(:title, "#{@result.course_name}") %>
-<h1><%= @result.course_name %></h1>
+<% provide(:title, "#{@examination.course_name}") %>
+<h1><%= @examination.course_name %></h1>
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
-    <%= form_for [@course, @result], method: :patch do |f| %>
+    <%= form_for [@course, @examination], method: :patch do |f| %>
       <ul>
-        <% @result.answers.each do |answer| %>
+        <% @examination.answers.each do |answer| %>
           <%= content_tag_for :li, answer do %>
             <span><%= answer.question.content %></span>
             <br />

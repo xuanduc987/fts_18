@@ -1,18 +1,18 @@
-class ResultsController < ApplicationController
+class ExaminationsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_course
   before_action :correct_user, except: :create
 
   def create
-    @result = Result.new course: @course, user: current_user
+    @examination = Examination.new course: @course, user: current_user
     @course.questions.shuffle.each do |question|
-      @result.answers.build question: question
+      @examination.answers.build question: question
     end
-    unless @result.save
+    unless @examination.save
       flash[:warning] = "You can't learn this."
       redirect_to root_url
     end
-    redirect_to course_result_path(@course, @result)
+    redirect_to course_examination_path(@course, @examination)
   end
 
   def show
@@ -27,8 +27,8 @@ class ResultsController < ApplicationController
   end
 
   def correct_user
-    @result = Result.find_by id: params[:id]
-    unless @result.user == current_user
+    @examination = Examination.find_by id: params[:id]
+    unless @examination.user == current_user
       flash[:warning] = "You can't view other's test"
       redirect_to root_url
     end
