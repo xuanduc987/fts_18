@@ -10,14 +10,16 @@
             <br />
             <%= f.fields_for :answers, answer do |builder| %>
               <% answer.options.shuffle.each do |option| %>
-                <%= builder.radio_button :option_id, option.id %>
+                <%= builder.radio_button :option_id, option.id,
+                  disabled: @examination.time_up? %>
                 <%= builder.label :option_id, option.content, value: option.id %>
               <% end %>
             <% end %>
           <% end %>
         <% end %>
       </ul>
-      <%= f.submit "Submit", class: "btn btn-primary" %>
+      <%= f.submit "Save", class: "btn btn-primary",
+        disabled: @examination.time_up? %>
     <% end %>
   </div>
 </div>
