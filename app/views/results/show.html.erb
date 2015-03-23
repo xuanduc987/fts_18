@@ -1,0 +1,23 @@
+<% provide(:title, "#{@result.course_name}") %>
+<h1><%= @result.course_name %></h1>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= form_for [@course, @result], method: :patch do |f| %>
+      <ul>
+        <% @result.answers.each do |answer| %>
+          <%= content_tag_for :li, answer do %>
+            <span><%= answer.question.content %></span>
+            <br />
+            <%= f.fields_for :answers, answer do |builder| %>
+              <% answer.options.shuffle.each do |option| %>
+                <%= builder.radio_button :option_id, option.id %>
+                <%= builder.label :option_id, option.content, value: option.id %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
