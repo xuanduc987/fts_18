@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "users/registrations"}
   resources :users, except: [:destroy]
   resources :courses do
-    resources :results, only: [:create, :show, :update]
+    resources :examinations, only: [:create, :show, :update]
   end
 
   namespace :admin do

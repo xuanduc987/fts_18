@@ -1,5 +1,5 @@
 class Answer < ActiveRecord::Base
-  belongs_to :result
+  belongs_to :examination
   belongs_to :option
   belongs_to :question
 
