@@ -1,13 +1,11 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_admin
+  load_and_authorize_resource
 
   def new
-    @user = User.new
   end
 
   def create
-    @user = User.new create_user_params
     if @user.save
       flash[:success] = "User created!"
       redirect_to users_path
@@ -17,12 +15,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find_by id: params[:id]
   end
 
   def update
-    @user = User.find_by id: params[:id]
-    if @user.update_attributes update_user_params
+    if @user.update_attributes update_params
       flash[:success] = 'Profile updated'
       redirect_to admin_root_path
     else
@@ -31,21 +27,19 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    @user.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to admin_root_path
   end
 
   private
-  def create_user_params
-    params.require(:user).permit(:name,
-                                 :email,
-                                 :password,
-                                 :password_confirmation,
-                                 :role)
+  def create_params
+    params.require(:user).permit(:name, :email,
+                                 :password, :password_confirmation,
+                                 :role, :avatar, :avatar_cache)
   end
 
-  def update_user_params
-    params.require(:user).permit :name, :email, :role
+  def update_params
+    create_params.delete_if{|_, v| v.blank?}
   end
 end
