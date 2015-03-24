@@ -1,0 +1,11 @@
+<ul>
+  <%= f.fields_for :answers, answer do |builder| %>
+    <% answer.options.shuffle.each do |option| %>
+      <%= content_tag_for :li, option do %>
+        <%= builder.radio_button(:option_id, option.id,
+                                 disabled: @examination.time_up?) %>
+        <%= option.content %>
+      <% end %>
+    <% end %>
+  <% end %>
+</ul>

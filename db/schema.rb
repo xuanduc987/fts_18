@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320094055) do
+ActiveRecord::Schema.define(version: 20150324065730) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "examination_id", limit: 4
     t.integer  "option_id",      limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "question_id",    limit: 4
+    t.string   "content",        limit: 255
+    t.boolean  "correct",        limit: 1,   default: false
   end
 
   add_index "answers", ["examination_id"], name: "index_answers_on_examination_id", using: :btree
@@ -53,10 +55,11 @@ ActiveRecord::Schema.define(version: 20150320094055) do
   add_index "options", ["question_id"], name: "index_options_on_question_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
-    t.text     "content",    limit: 65535
-    t.integer  "course_id",  limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "content",       limit: 65535
+    t.integer  "course_id",     limit: 4
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.string   "question_type", limit: 255,   default: "multiple_choice"
   end
 
   add_index "questions", ["course_id"], name: "index_questions_on_course_id", using: :btree

@@ -12,17 +12,8 @@
           <%= content_tag_for :li, answer do %>
             <span><%= answer.question.content %></span>
             <br />
-            <ul>
-              <%= f.fields_for :answers, answer do |builder| %>
-                <% answer.options.shuffle.each do |option| %>
-                  <%= content_tag_for :li, option do %>
-                    <%= builder.radio_button :option_id, option.id,
-                      disabled: @examination.time_up? %>
-                    <%= option.content %>
-                  <% end %>
-                <% end %>
-              <% end %>
-            </ul>
+            <%= render("#{answer.question_type}_question",
+                       f: f, answer: answer) %>
           <% end %>
         <% end %>
       </ol>

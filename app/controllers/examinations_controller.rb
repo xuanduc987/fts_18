@@ -41,7 +41,8 @@ class ExaminationsController < ApplicationController
   end
 
   def examination_params
-    params.require(:examination).permit answers_attributes: [:id, :option_id]
+    params.require(:examination).permit answers_attributes: [:id, :option_id,
+                                                             :content]
   end
 
   def check_time_limit
