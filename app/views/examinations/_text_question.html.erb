@@ -1,0 +1,5 @@
+<%= f.fields_for :answers, answer do |builder| %>
+  <%= builder.label :content, "Your answer" %>
+  <%= builder.text_field(:content, class: "form-control",
+                         disabled: @examination.time_up?) %>
+<% end %>
