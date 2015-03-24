@@ -1,0 +1,23 @@
+<% provide :title, "Create course" %>
+<%= content_tag :h1, yield(:title) %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @user, url: admin_users_path do |f| %>
+      Name: <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      Email: <%= f.email_field :email, class: "form-control" %>
+      Password: <%= f.password_field :password,
+        autocomplete: "off", class: "form-control" %>
+      Password confirmation: <%= f.password_field :password_confirmation,
+        autocomplete: "off", class: "form-control" %>
+      Avatar: <%= image_tag(@user.avatar.thumb.url) if @user.avatar? %>
+      <%= f.file_field :avatar, accept: "image/jpeg,image/gif,image/png" %>
+      <%= f.hidden_field :avatar_cache %>
+      Role: <%= f.select :role do %>
+        <%= content_tag :option, "Normal", value: "normal" %>
+        <%= content_tag :option, "Admin", value: "admin" %>
+      <% end %>
+      <%= f.submit "Sign up", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
