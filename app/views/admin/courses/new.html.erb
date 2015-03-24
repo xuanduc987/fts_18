@@ -1,0 +1,12 @@
+<% provide :title, "Create course" %>
+<%= content_tag :h1, yield(:title) %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @course, url: admin_courses_path do |f| %>
+      Name: <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      Desciption: <%= f.text_area :description, class: "form-control" %>
+      <%= f.submit "Create Course", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

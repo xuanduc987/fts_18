@@ -4,10 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
-  def is_an_admin
-    unless current_user.is_admin?
-      flash[:warning] = "You don't have permission!"
-      redirect_to root_url
-    end
+  def check_admin
+    return if current_user.is_admin?
+    flash[:warning] = "You don't have permission!"
+    redirect_to root_url
   end
 end
