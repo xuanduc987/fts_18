@@ -1,0 +1,8 @@
+<div class="row">
+  <%= content_tag :div, class: "center jumbotron" do %>
+    <%= content_tag :h1, "Welcome!" %>
+    <%= content_tag :h2, "This is the home page" %>
+    <%= link_to("Sign up now!", new_user_registration_path,
+                class: "btn btn-lg btn-primary") %>
+  <% end %>
+</div>

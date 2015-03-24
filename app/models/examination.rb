@@ -1,5 +1,6 @@
 class Examination < ActiveRecord::Base
   TIME_LIMIT = 20
+  STATUSES = %w(waiting learned checked)
 
   belongs_to :course
   belongs_to :user
@@ -8,6 +9,12 @@ class Examination < ActiveRecord::Base
   accepts_nested_attributes_for :answers
 
   delegate :name, to: :course, prefix: true
+
+  STATUSES.each do |status|
+    define_method "#{status}?" do
+      self.status == status
+    end
+  end
 
   def dead_line
     created_at + TIME_LIMIT.minutes
@@ -19,5 +26,9 @@ class Examination < ActiveRecord::Base
 
   def time_up?
     created_at < TIME_LIMIT.minutes.ago
+  end
+
+  def result
+    return "haven't learned" unless checked?
   end
 end

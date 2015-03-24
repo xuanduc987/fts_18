@@ -6,7 +6,8 @@ class ExaminationsController < ApplicationController
 
 
   def create
-    @examination = Examination.new course: @course, user: current_user
+    @examination.user = current_user
+    @course = @examination.course
     @course.questions.shuffle.each do |question|
       @examination.answers.build question: question
     end
@@ -30,6 +31,10 @@ class ExaminationsController < ApplicationController
   end
 
   private
+  def create_params
+    params.require(:examination).permit :course_id
+  end
+
   def update_params
     params.require(:examination).permit answers_attributes: [:id, :option_id,
                                                              :content]

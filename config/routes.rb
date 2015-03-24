@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "users/registrations"}
   resources :users, except: [:destroy]
   resources :courses do
-    resources :examinations, only: [:create, :show, :update]
+    resources :examinations, only: [:show, :update]
   end
+  resources :examinations, only: [:create]
 
   namespace :admin do
     root 'static_pages#home'

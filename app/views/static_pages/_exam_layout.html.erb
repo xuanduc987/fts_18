@@ -1,0 +1,20 @@
+<h1>All examinations</h1>
+<div class="row">
+  <%= form_for Examination.new do |f| %>
+    <div class="col-md-3 col-md-offset-3">
+      <%= f.select(:course_id, Course.all.collect{|c| [c.name, c.id]}, {},
+                   class: "form-control") %>
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "Start", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+<br/>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <ul>
+      <%= render @examinations %>
+    </ul>
+  </div>
+</div>

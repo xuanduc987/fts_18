@@ -37,8 +37,9 @@ ActiveRecord::Schema.define(version: 20150324065730) do
   create_table "examinations", force: :cascade do |t|
     t.integer  "course_id",  limit: 4
     t.integer  "user_id",    limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "status",     limit: 255, default: "waiting"
   end
 
   add_index "examinations", ["course_id"], name: "index_examinations_on_course_id", using: :btree
