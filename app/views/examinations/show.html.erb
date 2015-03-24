@@ -1,23 +1,31 @@
 <% provide(:title, "#{@examination.course_name}") %>
 <h1><%= @examination.course_name %></h1>
 <div class="row">
-  <div class="col-md-8 col-md-offset-2">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="exam-timer">
+      Time left:&nbsp;
+      <span id="time_left"> <%= time_from_second @examination.time_left %> </span>
+    </div>
     <%= form_for [@course, @examination], method: :patch do |f| %>
-      <ul>
+      <ol class="answers">
         <% @examination.answers.each do |answer| %>
           <%= content_tag_for :li, answer do %>
             <span><%= answer.question.content %></span>
             <br />
-            <%= f.fields_for :answers, answer do |builder| %>
-              <% answer.options.shuffle.each do |option| %>
-                <%= builder.radio_button :option_id, option.id,
-                  disabled: @examination.time_up? %>
-                <%= builder.label :option_id, option.content, value: option.id %>
+            <ul>
+              <%= f.fields_for :answers, answer do |builder| %>
+                <% answer.options.shuffle.each do |option| %>
+                  <%= content_tag_for :li, option do %>
+                    <%= builder.radio_button :option_id, option.id,
+                      disabled: @examination.time_up? %>
+                    <%= option.content %>
+                  <% end %>
+                <% end %>
               <% end %>
-            <% end %>
+            </ul>
           <% end %>
         <% end %>
-      </ul>
+      </ol>
       <%= f.submit "Save", class: "btn btn-primary",
         disabled: @examination.time_up? %>
     <% end %>

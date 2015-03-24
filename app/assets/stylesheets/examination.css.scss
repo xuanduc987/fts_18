@@ -1,0 +1,18 @@
+.answers {
+  li.answer {
+    margin-bottom: 20px;
+    input[type="radio"] {
+      width: 0;
+    }
+    ul {
+      padding-left: 0;
+      list-style: none;
+    }
+  }
+}
+
+.exam-timer {
+  position: fixed;
+  right: 150px;
+  top: 80px;
+}

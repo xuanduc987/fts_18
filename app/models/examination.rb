@@ -9,6 +9,14 @@ class Examination < ActiveRecord::Base
 
   delegate :name, to: :course, prefix: true
 
+  def dead_line
+    created_at + TIME_LIMIT.minutes
+  end
+
+  def time_left
+    dead_line - Time.zone.now
+  end
+
   def time_up?
     created_at < TIME_LIMIT.minutes.ago
   end
