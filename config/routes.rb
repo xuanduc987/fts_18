@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users, only: [:destroy]
+    root 'static_pages#home'
     resources :courses
+    resources :users
   end
 end

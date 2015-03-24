@@ -1,0 +1,7 @@
+<%= content_tag :div, class: "row" do %>
+  <%= content_tag :div, class: "center jumbotron" do %>
+    <%= content_tag :h1, "Welcome! You are our admin" %>
+    <%= content_tag :h2, "This is the home page" %>
+    <%= link_to "Create user", new_admin_user_path, class: "btn btn-lg btn-primary" %>
+  <% end %>
+<% end %>
