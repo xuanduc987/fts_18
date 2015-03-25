@@ -16,3 +16,6 @@ end
  course.questions.build(content: "text question no #{n}", question_type: "text")
 end
 course.save
+
+admin = User.new name: "Admin", email: "admin@admin.com", password: "admin123", role: "admin"
+admin.save
