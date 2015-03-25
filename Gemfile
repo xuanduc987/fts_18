@@ -14,6 +14,7 @@ gem 'bootstrap-will_paginate', '0.0.10'
 gem 'will_paginate', '3.0.7'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'cancancan', '~> 1.10'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development

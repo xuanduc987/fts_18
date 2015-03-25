@@ -1,17 +1,15 @@
 class Admin::CoursesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_admin
+  load_and_authorize_resource
 
   def index
-    @courses = Course.paginate page: params[:id]
+    @courses = @courses.paginate page: params[:id]
   end
 
   def new
-    @course = Course.new
   end
 
   def create
-    @course = Course.new course_params
     if @course.save
       flash[:success] = "Course created!"
       redirect_to admin_courses_path
@@ -21,11 +19,9 @@ class Admin::CoursesController < ApplicationController
   end
 
   def edit
-    @course = Course.find_by id: params[:id]
   end
 
   def update
-    @course = Course.find_by id: params[:id]
     if @course.update_attributes course_params
       flash[:success] = "Course updated"
       redirect_to admin_root_path
@@ -35,7 +31,7 @@ class Admin::CoursesController < ApplicationController
   end
 
   def destroy
-    Course.find(params[:id]).destroy
+    @course.destroy
     flash[:success] = "Course deleted"
     redirect_to admin_root_path
   end
