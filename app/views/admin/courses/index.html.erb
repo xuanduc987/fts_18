@@ -1,0 +1,9 @@
+<% provide(:title, 'All Course') %>
+<%= content_tag :h1, 'All Course' %>
+
+<%= will_paginate %>
+
+<%= content_tag :ul, class: "course" do %>
+  <%= render @courses %>
+<% end %>
+

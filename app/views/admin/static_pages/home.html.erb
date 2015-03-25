@@ -3,5 +3,7 @@
     <%= content_tag :h1, "Welcome! You are our admin" %>
     <%= content_tag :h2, "This is the home page" %>
     <%= link_to "Create user", new_admin_user_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "List all course", admin_courses_path, class: "btn btn-lg btn-primary" %>
+    <%= link_to "Create course", new_admin_course_path, class: "btn btn-lg btn-primary" %>
   <% end %>
 <% end %>
